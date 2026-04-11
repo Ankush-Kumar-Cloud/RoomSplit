@@ -5,10 +5,7 @@ const { generateToken } = require('../middleware/auth');
  * @route  POST /api/auth/signup
  * @access Public
  */
-<<<<<<< HEAD
-=======
 
->>>>>>> temp-save
 const signup = async (req, res) => {
   console.log(`yaha h ${req.body}`);
   try {
