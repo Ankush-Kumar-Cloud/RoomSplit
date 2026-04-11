@@ -1,4 +1,12 @@
 node_modules/
 dist/
+<<<<<<< HEAD
 .DS_Store
 *.local
+=======
+.env
+.DS_Store
+*.local
+logs/
+*.log
+>>>>>>> cd1ec2f (updated backend env fix)
