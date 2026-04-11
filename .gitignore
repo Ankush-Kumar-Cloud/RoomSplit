@@ -1,7 +1,18 @@
 node_modules/
 dist/
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+.DS_Store
+*.local
+=======
+>>>>>>> temp-save
 .env
 .DS_Store
 *.local
 logs/
 *.log
+<<<<<<< HEAD
+=======
+>>>>>>> cd1ec2f (updated backend env fix)
+>>>>>>> temp-save

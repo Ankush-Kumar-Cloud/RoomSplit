@@ -47,6 +47,10 @@ groupSchema.pre('save', function (next) {
 });
 
 /* ── Index for fast invite-code lookups ── */
+<<<<<<< HEAD
 groupSchema.index({ inviteCode: 1 });
+=======
+// groupSchema.index({ inviteCode: 1 });
+>>>>>>> temp-save
 
 module.exports = mongoose.model('Group', groupSchema);
