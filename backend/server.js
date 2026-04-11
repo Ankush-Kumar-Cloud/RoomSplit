@@ -18,7 +18,10 @@ connectDB();
 
 /* ── Global Middleware ── */
 app.use(cors({
-  origin:      "https://roomsplit-roan.vercel.app",
+  origin: [
+    "http://localhost:5173",
+    "https://roomsplit-roan.vercel.app"
+  ],
   credentials: true,
 }));
 app.use(express.json());
