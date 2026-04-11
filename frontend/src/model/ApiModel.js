@@ -11,7 +11,7 @@
  *   • Controllers call ApiModel methods; views never call fetch directly.
  */
 
-const BASE = '/api';
+const BASE = import.meta.env.VITE_API_URL + '/api';
 
 /* ── Token helpers ── */
 const TOKEN_KEY = 'rs_token';
