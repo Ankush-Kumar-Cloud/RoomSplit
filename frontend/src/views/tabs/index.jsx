@@ -30,7 +30,10 @@ export function ExpensesTab({ members, me, expCtrl, budgetCtrl, groupId, monthKe
   const monthTotals = useMemo(() => { const t = {}; all.filter(e => e.date?.startsWith(monthKey)).forEach(e => { t[uid(e.user)] = (t[uid(e.user)] || 0) + e.amount; }); return t; }, [all, monthKey]);
   const hasFilter = dateF || catF || srch;
 
+
   if (loading) return <Spinner />;
+
+  
 
   return (
     <>
@@ -93,7 +96,9 @@ export function ExpensesTab({ members, me, expCtrl, budgetCtrl, groupId, monthKe
                       <p style={{ fontWeight: 700, fontSize: 15, color: col.mid }}>₹{exp.amount}</p>
                       {isMe && (
                         <div style={{ display: 'flex', gap: 4, justifyContent: 'flex-end', marginTop: 6 }}>
-                          <Btn xs c="s" onClick={() => { setEditing(exp); setModal('edit'); }}>Edit</Btn>
+                          <Btn xs c="s" onClick={() => { 
+                            
+                            setEditing(exp); setModal('edit'); }}>Edit</Btn>
                           <Btn xs c="d" onClick={() => { setDelId(exp._id); setModal('del'); }}>Del</Btn>
                         </div>
                       )}
@@ -106,8 +111,13 @@ export function ExpensesTab({ members, me, expCtrl, budgetCtrl, groupId, monthKe
         })}
       </div>
 
+      
+
       {modal === 'add' && <Modal title="Add Expense" onClose={() => setModal(null)}><ExpenseForm members={members} onSubmit={async f => { await expCtrl.add(f); setModal(null); }} onCancel={() => setModal(null)} /></Modal>}
-      {modal === 'edit' && editing && <Modal title="Edit Expense" onClose={() => { setModal(null); setEditing(null); }}><ExpenseForm members={members} initial={{ item: editing.item, amount: String(editing.amount), date: editing.date, note: editing.note || '', category: editing.category || 'food', recurring: editing.recurring || false, splitType: editing.splitType || 'equal', splitWeights: Object.fromEntries(editing.splitWeights || new Map()) }} onSubmit={async f => { await expCtrl.update(editing._id, f); setModal(null); setEditing(null); }} onCancel={() => { setModal(null); setEditing(null); }} /></Modal>}
+      {modal === 'edit' && editing && <Modal title="Edit Expense" onClose={() => { setModal(null); setEditing(null); }}><ExpenseForm members={members} initial={{ item: editing.item, amount: String(editing.amount), date: editing.date, note: editing.note || '', category: editing.category || 'food', recurring: editing.recurring || false, splitType: editing.splitType || 'equal', splitWeights:
+  editing?.splitWeights instanceof Map
+    ? Object.fromEntries(editing.splitWeights)
+    : editing?.splitWeights || {} }} onSubmit={async f => { await expCtrl.update(editing._id, f); setModal(null); setEditing(null); }} onCancel={() => { setModal(null); setEditing(null); }} /></Modal>}
       {modal === 'del' && <Modal title="Delete Expense?" onClose={() => { setModal(null); setDelId(null); }}><p style={{ color: 'var(--text2)', fontSize: 14, marginBottom: 20 }}>This cannot be undone.</p><div style={{ display: 'flex', gap: 8, justifyContent: 'flex-end' }}><Btn c="s" onClick={() => { setModal(null); setDelId(null); }}>Cancel</Btn><Btn c="d" onClick={async () => { await expCtrl.remove(delId); setModal(null); setDelId(null); }}>Delete</Btn></div></Modal>}
     </>
   );
